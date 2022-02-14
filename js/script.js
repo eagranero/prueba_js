@@ -222,7 +222,7 @@ formularioBusqueda.addEventListener("submit", (e) => {
     listaPacientes.forEach((p)=>{
         if(p.nombre.toLowerCase() == nombre.value.toLowerCase()){
             console.log("Encontrado");
-            p.estadoCorporal();
+            //p.estadoCorporal();
             resultadoBusqueda.style.display = "block";
             resultadoBusqueda.innerHTML = 
             `<ul>
