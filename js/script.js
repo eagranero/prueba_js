@@ -9,7 +9,7 @@ la sesion.
 -La idea con este asistente es que pueda inclusive generar un informe completo para el paciente que incluya un plan alimentario personalizado a partir de los datos que se carguen.
 */
 
-let nombre, edad, peso, altura, sexo;
+let nombre, apellido, edad, peso, altura, sexo;
 let imc;
 let datosCorporales, grasaCorporal=0, musculo=0;
 let cantidadNueva=0, consultaPaciente;
@@ -20,11 +20,11 @@ let accion;
 class Paciente{
     constructor (nombre, apellido, edad, peso, altura, sexo, grasaCorporal, musculo){
         this.nombre = nombre;
-        this.nombre = apellido;
-        this.edad   = edad;
-        this.peso   = peso;
-        this.altura   = altura;
-        this.sexo  = sexo;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.peso = peso;
+        this.altura = altura;
+        this.sexo = sexo;
         this.grasaCorporal = grasaCorporal;
         this.musculo = musculo;
         this.IMC = (Math.trunc(100*(peso/(Math.pow(altura,2)))))/100; //trunco valor de IMC a 2 decimales
@@ -162,10 +162,10 @@ class Paciente{
         alert(`Tu IMC es de ${this.IMC} y tienes ${this.estadoIMC(this.IMC)}`);
         console.log(`Tu IMC es de ${this.IMC} y tienes ${this.estadoIMC(this.IMC)}`);
         if (this.grasaCorporal!=0 && this.musculo!=0){
-            console.log(`Tu nivel de grasa es ${this.estadoGrasa(this.sexo, this.edad, this.grasaCorporal)}`);
-            alert(`Tu nivel de grasa es ${this.estadoGrasa(this.sexo, this.edad, this.grasaCorporal)}`);
-            console.log(`Tu nivel de musculo es ${this.estadoMusculo(this.sexo, this.edad, this.musculo)}`);
-            alert(`Tu nivel de musculo es ${this.estadoMusculo(this.sexo, this.edad, this.musculo)}`);
+            console.log(`El paciente tiene un nivel de grasa ${this.estadoGrasa(this.sexo, this.edad, this.grasaCorporal)}`);
+            alert(`El paciente tiene un nivel de grasa ${this.estadoGrasa(this.sexo, this.edad, this.grasaCorporal)}`);
+            console.log(`El paciente tiene un nivel de musculo ${this.estadoMusculo(this.sexo, this.edad, this.musculo)}`);
+            alert(`El paciente tiene un nivel de musculo ${this.estadoMusculo(this.sexo, this.edad, this.musculo)}`);
         }
     }
     //------------------------------------------------------
@@ -226,13 +226,15 @@ formularioBusqueda.addEventListener("submit", (e) => {
             resultadoBusqueda.style.display = "block";
             resultadoBusqueda.innerHTML = 
             `<ul>
-                <li>${p.nombre} ${p.apellido}.</li>
-                <li>${p.edad}.</li>
-                <li>${p.peso}.</li>
-                <li>${p.altura}.</li>
-                <li>${p.sexo}.</li>
-                <li>${p.grasaCorporal}.</li>
-                <li>${p.musculo}.</li>
+                <li>Nombre y Apellido: ${p.nombre} ${p.apellido}.</li>
+                <li>Edad: ${p.edad}.</li>
+                <li>Peso: ${p.peso}.</li>
+                <li>Altura: ${p.altura}.</li>
+                <li>Sexo: ${p.sexo}.</li>
+                <li>Grasa Corporal: ${p.grasaCorporal}.</li>
+                <li>Musculo: ${p.musculo}.</li>
+                <li>El paciente tiene un nivel de grasa ${p.estadoGrasa(p.sexo,p.edad,p.grasaCorporal)}.</li>
+                <li>El paciente tiene un nivel de musculo ${p.estadoMusculo(p.sexo,p.edad,p.musculo)}.</li>
             </ul>`;
         } 
     })
