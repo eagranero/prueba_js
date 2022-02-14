@@ -1,14 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NutriBot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap" rel="stylesheet"> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
-
+    <header>
+        <div>
+            <h1>Nutri<span>BOT</span></h1>
+            <h2>Asistente Nutricional</h2>
+        </div>
+    </header>
+    <div id="contenedorOpciones">
+        <div class="opciones">
+            <button type="button" class="boton" id="botonCargarPaciente">Cargar Paciente</button>
+            <button type="button" class="boton" id="botonBuscarPaciente">Buscar Paciente</button>
+        </div>
+    </div>
+    <div id="contenedorCarga">
+        <form id="formularioCarga">
+            <span><i class="icon icon-user"></i></span>
+            <input type="text" class="form-control item" id="nombre" placeholder="Nombre">
+            <input type="text" class="form-control item" id="apellido" placeholder="Apellido">
+            <input type="text" class="form-control item" id="edad" placeholder="Edad">
+            <input type="text" class="form-control item" id="sexo" placeholder="Sexo">
+            <input type="text" class="form-control item" id="altura" placeholder="Altura">
+            <input type="text" class="form-control item" id="peso" placeholder="Peso">
+            <input type="text" class="form-control item" id="grasaCorporal" placeholder="Porcentaje de grasa coporal">
+            <input type="text" class="form-control item" id="musculo" placeholder="Porcentaje de musculo esqueletico">
+            <input type="date" class="form-control item" id="nacimiento" placeholder="Fecha de nacimiento">
+            <input type="text" class="form-control item" id="email" placeholder="Email">
+            <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number">
+            <button type="submit" class="btn btn-block create-account">Cargar Paciente</button>
+        </form>
+    </div>
+    <div id="contenedorBusqueda">
+        <form id="formularioBusqueda">
+            <span><i class="icon icon-user"></i></span>
+            <input type="text" class="form-control item" id="nombreBuscar" placeholder="Nombre">
+             <button type="submit" class="btn btn-block create-account">Buscar Paciente</button>
+        </form>
+        <div id="resultadoBusqueda">
+            
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="js/template_script.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
+
