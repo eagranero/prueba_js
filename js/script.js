@@ -13,7 +13,7 @@ let nombre, apellido, edad, peso, altura, sexo;
 let imc;
 let datosCorporales, grasaCorporal=0, musculo=0;
 let cantidadNueva=0, consultaPaciente;
-const listaPacientes= [];
+let listaPacientes= [],listaPacientesLocal= [];
 let accion;
 
 //------DEFINICION DE LA CLASE PACIENTE-------------------------------------------
@@ -27,7 +27,7 @@ class Paciente{
         this.sexo = sexo;
         this.grasaCorporal = grasaCorporal;
         this.musculo = musculo;
-        this.IMC = (Math.trunc(100*(peso/(Math.pow(altura,2)))))/100; //trunco valor de IMC a 2 decimales
+        this.IMC = String((Math.trunc(100*(peso/(Math.pow(altura,2)))))/100); //trunco valor de IMC a 2 decimales
         this.fechaCarga= new Date();
     }
     //------METODOS PARA EVALUAR AL PACIENTE------------
@@ -172,8 +172,16 @@ class Paciente{
 }
 //------------------------------------------------------------------------------------------
 
+//Descargo listado de pacientes guardado en LocalStorage (Si existe)
+if (localStorage.getItem("listaPacientes") != null){
+    listaPacientesLocal = JSON.parse(localStorage.getItem("listaPacientes"));
+} 
+listaPacientesLocal.forEach((p)=>{
+    listaPacientes.push(new Paciente(p.nombre, p.apellido, p.edad, p.peso, p.altura, p.sexo, p.grasaCorporal, p.musculo));
+})
+//--------------------------------------------------------------------------------------------
 
-// Habilito carga o busqueda de paciente segun menu---------------------------------------------
+// Habilito carga o busqueda de paciente segun menu-----------------------------------------------
 let contenedorCarga = document.getElementById("contenedorCarga");
 let contenedorBusqueda = document.getElementById("contenedorBusqueda");
 let botonCargarPaciente=document.getElementById("botonCargarPaciente");
@@ -191,7 +199,6 @@ botonBuscarPaciente.addEventListener("click", ()=>{
     resultadoBusqueda.style.display = "none";
 });
 //------------------------------------------------------------------------------------------------
-
 //Cargo array de pacientes en funcion de los datos cargados en formulario--------------------------
 let formularioCarga = document.getElementById("formularioCarga");
 formularioCarga.addEventListener("submit", (e) => {
@@ -207,6 +214,9 @@ formularioCarga.addEventListener("submit", (e) => {
     musculo = document.getElementById("musculo");
     listaPacientes.push(new Paciente(nombre.value, apellido.value, edad.value, peso.value, altura.value, sexo.value, grasaCorporal.value, musculo.value));
     listaPacientes.forEach((p)=>{console.log(p)})
+
+    localStorage.setItem('listaPacientes', JSON.stringify(listaPacientes)); //Actualizo lista de pacientes en localstorage
+
     formularioCarga.reset();
 });
 //---------------------------------------------------------------------------------------------------
@@ -222,7 +232,6 @@ formularioBusqueda.addEventListener("submit", (e) => {
     listaPacientes.forEach((p)=>{
         if(p.nombre.toLowerCase() == nombre.value.toLowerCase()){
             console.log("Encontrado");
-            //p.estadoCorporal();
             resultadoBusqueda.style.display = "block";
             resultadoBusqueda.innerHTML = 
             `<ul>
@@ -233,6 +242,7 @@ formularioBusqueda.addEventListener("submit", (e) => {
                 <li>Sexo: ${p.sexo}.</li>
                 <li>Grasa Corporal: ${p.grasaCorporal}.</li>
                 <li>Musculo: ${p.musculo}.</li>
+                <li>El paciente tiene un IMC de ${p.IMC} y tiene ${p.estadoIMC(p.IMC)}.</li>
                 <li>El paciente tiene un nivel de grasa ${p.estadoGrasa(p.sexo,p.edad,p.grasaCorporal)}.</li>
                 <li>El paciente tiene un nivel de musculo ${p.estadoMusculo(p.sexo,p.edad,p.musculo)}.</li>
             </ul>`;
