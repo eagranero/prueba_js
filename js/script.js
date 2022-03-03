@@ -172,34 +172,49 @@ class Paciente{
 }
 //------------------------------------------------------------------------------------------
 
-//Descargo listado de pacientes guardado en LocalStorage (Si existe)
-if (localStorage.getItem("listaPacientes") != null){
-    listaPacientesLocal = JSON.parse(localStorage.getItem("listaPacientes"));
-} 
+
+//Descargo listado de pacientes guardado en LocalStorage (Si existe) y lo guardo como objetos de clase paciente
+listaPacientesLocal = JSON.parse(localStorage.getItem("listaPacientes")) || [];
 listaPacientesLocal.forEach((p)=>{
     listaPacientes.push(new Paciente(p.nombre, p.apellido, p.edad, p.peso, p.altura, p.sexo, p.grasaCorporal, p.musculo));
 })
 //--------------------------------------------------------------------------------------------
 
-// Habilito carga o busqueda de paciente segun menu-----------------------------------------------
+
+//Obtengo elementos del HTML------------------------------------------------------------------
 let contenedorCarga = document.getElementById("contenedorCarga");
 let contenedorBusqueda = document.getElementById("contenedorBusqueda");
 let botonCargarPaciente=document.getElementById("botonCargarPaciente");
+let botonBuscarPaciente=document.getElementById("botonBuscarPaciente");
+let formularioBusqueda = document.getElementById("formularioBusqueda");
+let resultadoBusqueda = document.getElementById("resultadoBusqueda");
+let botonBuscar = document.getElementById("botonBorrar");
+let resultado = document.getElementById("resultado");
+//-------------------------------------------------------------------------------------------
+
+
+// Habilito carga o busqueda de paciente segun menu-----------------------------------------------
 botonCargarPaciente.addEventListener("click", ()=>{
     console.log("cargar paciente");
+    botonCargarPaciente.style.transform = "scale(1.2)";
+    botonBuscarPaciente.style.transform = "scale(0.8)";
     contenedorCarga.style.display = "block";
     contenedorBusqueda.style.display = "none";
     resultadoBusqueda.style.display = "none";
 });
-let botonBuscarPaciente=document.getElementById("botonBuscarPaciente");
+
 botonBuscarPaciente.addEventListener("click", ()=>{
     console.log("buscar paciente");
+    botonCargarPaciente.style.transform = "scale(0.8)";
+    botonBuscarPaciente.style.transform = "scale(1.2)";
     contenedorCarga.style.display = "none";
     contenedorBusqueda.style.display = "block";
     resultadoBusqueda.style.display = "none";
 });
 //------------------------------------------------------------------------------------------------
-//Cargo array de pacientes en funcion de los datos cargados en formulario--------------------------
+
+
+//Cargo nuevo paciente en funcion de los datos cargados en formulario--------------------------
 let formularioCarga = document.getElementById("formularioCarga");
 formularioCarga.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -217,37 +232,86 @@ formularioCarga.addEventListener("submit", (e) => {
 
     localStorage.setItem('listaPacientes', JSON.stringify(listaPacientes)); //Actualizo lista de pacientes en localstorage
 
-    formularioCarga.reset();
+    formularioCarga.reset();//Limpio formulario
+    
+    //Notificacion de paciente cargado (Se remplazo notifiacion anterior que modificaba el DOM, pienso que asi queda mejor)
+    Toastify({
+        text: "Paciente Cargado",
+        duration: 3000
+    }).showToast();
+    //---------------------------------
 });
 //---------------------------------------------------------------------------------------------------
 
 
 //Busqueda de paciente por nombre-------------------------------------------------------------------
-let formularioBusqueda = document.getElementById("formularioBusqueda");
-let resultadoBusqueda = document.getElementById("resultadoBusqueda");
 formularioBusqueda.addEventListener("submit", (e) => {
     e.preventDefault();
     console.log("Buscando paciente");
-    nombre = document.getElementById("nombreBuscar");
-    listaPacientes.forEach((p)=>{
-        if(p.nombre.toLowerCase() == nombre.value.toLowerCase()){
-            console.log("Encontrado");
-            resultadoBusqueda.style.display = "block";
-            resultadoBusqueda.innerHTML = 
-            `<ul>
-                <li>Nombre y Apellido: ${p.nombre} ${p.apellido}.</li>
-                <li>Edad: ${p.edad}.</li>
-                <li>Peso: ${p.peso}.</li>
-                <li>Altura: ${p.altura}.</li>
-                <li>Sexo: ${p.sexo}.</li>
-                <li>Grasa Corporal: ${p.grasaCorporal}.</li>
-                <li>Musculo: ${p.musculo}.</li>
-                <li>El paciente tiene un IMC de ${p.IMC} y tiene ${p.estadoIMC(p.IMC)}.</li>
-                <li>El paciente tiene un nivel de grasa ${p.estadoGrasa(p.sexo,p.edad,p.grasaCorporal)}.</li>
-                <li>El paciente tiene un nivel de musculo ${p.estadoMusculo(p.sexo,p.edad,p.musculo)}.</li>
-            </ul>`;
-        } 
-    })
+    let nombreBuscar = document.getElementById("nombreBuscar");
+    
+    //Comando para limpiar localStorage--------------------
+    if (nombreBuscar.value.toLowerCase() == "limpiar"){
+        Swal.fire({
+            title: '¿Seguro que desea eliminar el registro de pacientes en el LocalStorage?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Borrar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            console.log(result);
+            if (result.isConfirmed) {
+                localStorage.clear();
+                location.reload();
+            }
+        })     
+    }
+    //------------------------------------------------------
+    
+    //Busco indice de elemento buscado
+    indice = listaPacientes.findIndex( p => p.nombre.toLowerCase() == nombreBuscar.value.toLowerCase());
+    console.log(indice);
+    
+    if(indice>= 0 && listaPacientes[indice].nombre.toLowerCase() == nombreBuscar.value.toLowerCase()){//Si lo encuentro
+        console.log("Encontrado");
+        resultadoBusqueda.style.display = "block";
+        resultado.innerHTML =
+        `<ul>
+        <li>Nombre y Apellido: ${listaPacientes[indice].nombre} ${listaPacientes[indice].apellido}.</li>
+        <li>Edad: ${listaPacientes[indice].edad}.</li>
+        <li>Peso: ${listaPacientes[indice].peso}.</li>
+        <li>Altura: ${listaPacientes[indice].altura}.</li>
+        <li>Sexo: ${listaPacientes[indice].sexo}.</li>
+        <li>Grasa Corporal: ${listaPacientes[indice].grasaCorporal}.</li>
+        <li>Musculo: ${listaPacientes[indice].musculo}.</li>
+        <li>El paciente tiene un IMC de ${listaPacientes[indice].IMC} y tiene ${listaPacientes[indice].estadoIMC(listaPacientes[indice].IMC)}.</li>
+        <li>El paciente tiene un nivel de grasa ${listaPacientes[indice].estadoGrasa(listaPacientes[indice].sexo,listaPacientes[indice].edad,listaPacientes[indice].grasaCorporal)}.</li>
+        <li>El paciente tiene un nivel de musculo ${listaPacientes[indice].estadoMusculo(listaPacientes[indice].sexo,listaPacientes[indice].edad,listaPacientes[indice].musculo)}.</li>
+        </ul>`;
+        botonBuscar.style.display = "block"; //Muestro boton de borrar
+    }else{ //Si no lo encuentro
+        console.log("Paciente no encontrado");
+        resultadoBusqueda.style.display = "block";
+        resultado.innerHTML = '<p>PACIENTE NO ENCONTRADO</p>'
+        botonBuscar.style.display = "none"; //Oculto boton de borrar
+    }
+
     formularioBusqueda.reset();
-})  
+}) 
+
+//Boton para borrar el paciente encontrado
+resultadoBusqueda.addEventListener("click", (e) => {
+    console.log(listaPacientes.length);
+    listaPacientes.splice(indice,1);
+    localStorage.setItem('listaPacientes', JSON.stringify(listaPacientes)); //Actualizo lista de pacientes en localstorage
+    console.log(listaPacientes);
+    console.log(listaPacientes.length);
+
+    resultadoBusqueda.style.display = "block";
+    resultado.innerHTML = '<p>PACIENTE BORRADO</p>'
+    botonBuscar.style.display = "none"; //Oculto boton de borrar
+
+})
+//-------------------------------------------
+
 //---------------------------------------------------------------------------------------------
