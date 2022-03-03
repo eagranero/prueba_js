@@ -5,6 +5,14 @@
     font-weight: 300;
   }
 
+.toastify{
+    border-radius: 10px;
+    width: auto;
+    text-align: center;
+    background: rgba(0,0,0,0.5);
+    box-shadow: none;
+}
+
 body{
     background-color: #dee9ff;
 }
@@ -176,6 +184,16 @@ header div h2{
 
 
 @media (max-width: 576px) {
+    .toastify{
+        border-radius: 10px;
+        right: 15%;
+        max-width: 600px;
+        width: 70%;
+        text-align: center;
+        background: rgba(0,0,0,0.5);
+        box-shadow: none;
+    }
+
     #contenedorCarga form{
         padding: 30px 20px;
     }

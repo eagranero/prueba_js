@@ -227,18 +227,52 @@ formularioCarga.addEventListener("submit", (e) => {
     altura = document.getElementById("altura");
     grasaCorporal = document.getElementById("grasaCorporal");
     musculo = document.getElementById("musculo");
-    listaPacientes.push(new Paciente(nombre.value, apellido.value, edad.value, peso.value, altura.value, sexo.value, grasaCorporal.value, musculo.value));
-    listaPacientes.forEach((p)=>{console.log(p)})
 
-    localStorage.setItem('listaPacientes', JSON.stringify(listaPacientes)); //Actualizo lista de pacientes en localstorage
+    indice = listaPacientes.findIndex( p => p.nombre.toLowerCase() == nombre.value.toLowerCase());
+    console.log(indice);
 
-    formularioCarga.reset();//Limpio formulario
-    
-    //Notificacion de paciente cargado (Se remplazo notifiacion anterior que modificaba el DOM, pienso que asi queda mejor)
+    //Si el nombre esta e blanco
+    if (nombre.value===''){
     Toastify({
-        text: "Paciente Cargado",
-        duration: 3000
+            text: "Nombre no cargado",
+            duration: 3000,
+            gravity: "top",
+            style: {
+            background: "color(to right, #00b09b, #96c93d)",
+        },
     }).showToast();
+    
+    //Si el paciente ya se encuentra cargado
+    }else if(indice>= 0 && listaPacientes[indice].nombre.toLowerCase() == nombre.value.toLowerCase()){//Si lo encuentro
+        console.log(nombre.value);
+        Toastify({
+            text: "El paciente ya se encuentra cargado",
+            duration: 3000,
+            gravity: "top",
+            style: {
+                background: "color(to right, #00b09b, #96c93d)",
+              },
+        }).showToast();
+    
+    //Si todo esta en orden cargo.
+    }else{
+        listaPacientes.push(new Paciente(nombre.value, apellido.value, edad.value, peso.value, altura.value, sexo.value, grasaCorporal.value, musculo.value));
+        listaPacientes.forEach((p)=>{console.log(p)})
+
+        localStorage.setItem('listaPacientes', JSON.stringify(listaPacientes)); //Actualizo lista de pacientes en localstorage
+
+        formularioCarga.reset();//Limpio formulario
+        
+        //Notificacion de paciente cargado (Se remplazo notifiacion anterior que modificaba el DOM, pienso que asi queda mejor)
+        Toastify({
+            text: "Paciente Cargado",
+            duration: 3000,
+            gravity: "top",
+            style: {
+                background: "color(to right, #00b09b, #96c93d)",
+            },
+        }).showToast();
+    }
     //---------------------------------
 });
 //---------------------------------------------------------------------------------------------------
