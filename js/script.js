@@ -335,15 +335,27 @@ formularioBusqueda.addEventListener("submit", (e) => {
 
 //Boton para borrar el paciente encontrado
 resultadoBusqueda.addEventListener("click", (e) => {
-    console.log(listaPacientes.length);
-    listaPacientes.splice(indice,1);
-    localStorage.setItem('listaPacientes', JSON.stringify(listaPacientes)); //Actualizo lista de pacientes en localstorage
-    console.log(listaPacientes);
+    
     console.log(listaPacientes.length);
 
-    resultadoBusqueda.style.display = "block";
-    resultado.innerHTML = '<p>PACIENTE BORRADO</p>'
-    botonBuscar.style.display = "none"; //Oculto boton de borrar
+    Swal.fire({
+        title: `¿Seguro que desea eliminar el paciente ${listaPacientes[indice].nombre}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Borrar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            listaPacientes.splice(indice,1);
+            localStorage.setItem('listaPacientes', JSON.stringify(listaPacientes)); //Actualizo lista de pacientes en localstorage
+            console.log(listaPacientes);
+            console.log(listaPacientes.length);
+
+            resultadoBusqueda.style.display = "block";
+            resultado.innerHTML = '<p>PACIENTE BORRADO</p>'
+            botonBuscar.style.display = "none"; //Oculto boton de borrar
+        }
+    }) 
 
 })
 //-------------------------------------------
