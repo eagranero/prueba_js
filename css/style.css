@@ -116,6 +116,7 @@ header div h2{
 	border-radius: 20px;
     margin-bottom: 25px;
     padding: 10px 20px;
+    border-color: grey;
 }
 
 #contenedorCarga .create-account{

@@ -1,0 +1,62 @@
+[
+    {
+        "nombre": "Eduardo",
+        "apellido": "Granero",
+        "edad": "31",
+        "peso": "71",
+        "altura": "1.8",
+        "sexo": "Hombre",
+        "grasaCorporal": "30",
+        "musculo": "40",
+        "IMC": "21.91",
+        "fechaCarga": "2022-03-08T22:06:54.109Z"
+    },
+    {
+        "nombre": "Florencia",
+        "apellido": "Zini",
+        "edad": "31",
+        "peso": "50",
+        "altura": "1.55",
+        "sexo": "mujer",
+        "grasaCorporal": "20",
+        "musculo": "30",
+        "IMC": "20.81",
+        "fechaCarga": "2022-03-09T20:06:17.244Z"
+    },
+    {
+        "nombre": "Clara",
+        "apellido": "Garcia",
+        "edad": "33",
+        "peso": "47",
+        "altura": "1.6",
+        "sexo": "mujer",
+        "grasaCorporal": "20",
+        "musculo": "35",
+        "IMC": "18.36",
+        "fechaCarga": "2022-03-09T20:06:43.761Z"
+    },
+    {
+        "nombre": "Juan",
+        "apellido": "Perez",
+        "edad": "50",
+        "peso": "80",
+        "altura": "1.9",
+        "sexo": "hombre",
+        "grasaCorporal": "30",
+        "musculo": "30",
+        "IMC": "22.16",
+        "fechaCarga": "2022-03-09T20:07:31.624Z"
+    },
+    {
+        "nombre": "Roberto",
+        "apellido": "Gomez",
+        "edad": "45",
+        "peso": "110",
+        "altura": "1.82",
+        "sexo": "Hombre",
+        "grasaCorporal": "40",
+        "musculo": "30",
+        "IMC": "33.21",
+        "fechaCarga": "2022-03-09T20:08:02.999Z"
+    }
+]
