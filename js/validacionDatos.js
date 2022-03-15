@@ -34,21 +34,25 @@ function validarDatos(nombre,apellido,edad,peso,altura,sexo,grasaCorporal,muscul
     
     //Validacion de la edad
     if (edad=="") listaErroresCarga.push(new erroresCarga("edad","Edad no asignada"));
+    for(i=0;i<edad.length;i++){
+        auxASCII=edad[i];
+        if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47)){listaErroresCarga.push(new erroresCarga("edad","Edad: Usar solo caracteres numericos"));break;}
+    }
     
     //Validacion del Peso
     if (peso=="") listaErroresCarga.push(new erroresCarga("peso","Peso no asignado"));
     for(i=0;i<peso.length;i++){
         auxASCII=peso[i];
-        if (peso[i]==',') listaErroresCarga.push(new erroresCarga("peso","Peso: Usar caracter \".\" para numeros decimales"));
-        else if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47) && peso[i]!='.' ) listaErroresCarga.push(new erroresCarga("peso","Peso: Usar solo caracteres numericos"));
+        if (peso[i]==','){ listaErroresCarga.push(new erroresCarga("peso","Peso: Usar caracter \".\" para numeros decimales"));break;}
+        else if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47) && peso[i]!='.' ){listaErroresCarga.push(new erroresCarga("peso","Peso: Usar solo caracteres numericos"));break;}
     }
     
     //Validacion de la Altura
     if (altura=="") listaErroresCarga.push(new erroresCarga("altura","Altura no asignada"));
     for(i=0;i<altura.length;i++){
         auxASCII=altura[i];
-        if (auxASCII==',') listaErroresCarga.push(new erroresCarga("altura","Altura: Usar caracter \".\" para numeros decimales"));
-        else if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47) && auxASCII!='.' ) listaErroresCarga.push(new erroresCarga("altura","Altura: Usar solo caracteres numericos"));
+        if (auxASCII==','){listaErroresCarga.push(new erroresCarga("altura","Altura: Usar caracter \".\" para numeros decimales"));break;}
+        else if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47) && auxASCII!='.' ){listaErroresCarga.push(new erroresCarga("altura","Altura: Usar solo caracteres numericos"));break;}
     }
     
     //Validacion del Sexo
@@ -58,15 +62,16 @@ function validarDatos(nombre,apellido,edad,peso,altura,sexo,grasaCorporal,muscul
     //Validacion de la Grasa Corporal
     for(i=0;i<grasaCorporal.length;i++){
         auxASCII=grasaCorporal[i];
-        if (auxASCII==',') listaErroresCarga.push(new erroresCarga("grasaCorporal","Grasa Corporal: Usar caracter \".\" para numeros decimales"));
-        else if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47) && auxASCII!='.' ) listaErroresCarga.push(new erroresCarga("grasaCorporal","Grasa Corporal: Usar solo caracteres numericos"));
+        if (auxASCII==','){listaErroresCarga.push(new erroresCarga("grasaCorporal","Grasa Corporal: Usar caracter \".\" para numeros decimales"));break;}
+        else if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47) && auxASCII!='.' ) {listaErroresCarga.push(new erroresCarga("grasaCorporal","Grasa Corporal: Usar solo caracteres numericos"));break;}
+            
     }
     
     //Validacion del Musculo Esqueletico
     for(i=0;i<musculo.length;i++){
         auxASCII=musculo[i];
-        if (auxASCII==',') listaErroresCarga.push(new erroresCarga("musculo","Grasa Corporal: Usar caracter \".\" para numeros decimales"));
-        else if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47) && auxASCII!='.' ) listaErroresCarga.push(new erroresCarga("musculo","Grasa Corporal: Usar solo caracteres numericos"));
+        if (auxASCII==','){ listaErroresCarga.push(new erroresCarga("musculo","Musculo Esqueletico: Usar caracter \".\" para numeros decimales"));break;}
+        else if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47) && auxASCII!='.' ) {listaErroresCarga.push(new erroresCarga("musculo","Musculo Esqueletico: Usar solo caracteres numericos"));break;}
     }
     
 
