@@ -2,6 +2,7 @@
     {
         "nombre": "Eduardo",
         "apellido": "Granero",
+        "dni":"1111111",
         "edad": "31",
         "peso": "71",
         "altura": "1.8",
@@ -14,6 +15,7 @@
     {
         "nombre": "Florencia",
         "apellido": "Zini",
+        "dni":"2222222",
         "edad": "31",
         "peso": "50",
         "altura": "1.55",
@@ -26,6 +28,7 @@
     {
         "nombre": "Clara",
         "apellido": "Garcia",
+        "dni":"3333333",
         "edad": "33",
         "peso": "47",
         "altura": "1.6",
@@ -38,6 +41,7 @@
     {
         "nombre": "Juan",
         "apellido": "Perez",
+        "dni":"4444444",
         "edad": "50",
         "peso": "80",
         "altura": "1.9",
@@ -50,6 +54,7 @@
     {
         "nombre": "Roberto",
         "apellido": "Gomez",
+        "dni":"5555555",
         "edad": "45",
         "peso": "110",
         "altura": "1.82",

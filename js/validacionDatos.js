@@ -12,6 +12,7 @@ class erroresCarga{
 function limpiarErrores(){
     nombre.style.borderColor="grey";
     apellido.style.borderColor="grey";
+    dni.style.borderColor="grey";
     edad.style.borderColor="grey";
     sexo.style.borderColor="grey";
     altura.style.borderColor="grey";
@@ -23,7 +24,7 @@ function limpiarErrores(){
 //----------------------------------------------------------------------------------------------
 
 //Funcion para validar los elementos cargados en form--------------------------------------------
-function validarDatos(nombre,apellido,edad,peso,altura,sexo,grasaCorporal,musculo){
+function validarDatos(nombre,apellido,dni,edad,peso,altura,sexo,grasaCorporal,musculo){
     limpiarErrores();
     
     //Validacion del Nombre
@@ -31,6 +32,13 @@ function validarDatos(nombre,apellido,edad,peso,altura,sexo,grasaCorporal,muscul
     
     //Validacion del Apellido
     if (apellido=="") listaErroresCarga.push(new erroresCarga("apellido","Apellido no asignado"));
+    
+    //Validacion de la dni
+    if (dni=="") listaErroresCarga.push(new erroresCarga("dni","DNI no asignado"));
+    for(i=0;i<dni.length;i++){
+        auxASCII=dni[i];
+        if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47)){listaErroresCarga.push(new erroresCarga("dni","DNI: Usar solo caracteres numericos"));break;}
+    }    
     
     //Validacion de la edad
     if (edad=="") listaErroresCarga.push(new erroresCarga("edad","Edad no asignada"));
@@ -74,15 +82,14 @@ function validarDatos(nombre,apellido,edad,peso,altura,sexo,grasaCorporal,muscul
         else if ((auxASCII.charCodeAt(0)>57 || auxASCII.charCodeAt(0)<47) && auxASCII!='.' ) {listaErroresCarga.push(new erroresCarga("musculo","Musculo Esqueletico: Usar solo caracteres numericos"));break;}
     }
     
-
-    //Retorno respuesta de la validacion
+    //Retorno respuesta de la validacion (1 si hay errores, 0 si no hay errores)
     if (listaErroresCarga.length>0) return 1;
     else return 0;
 }
 //-----------------------------------------------------------------------------------------------------
 
 
-//Funcion para mostrar los errores en pantalla del form------------------------------------------------
+//Funcion para mostrar los errores en elementos del form------------------------------------------------
 function mostrarErrores(){
     listaErroresCarga.forEach((elemento)=>{
         Toastify({
@@ -104,6 +111,9 @@ function mostrarErrores(){
             case (elemento.espacio=="edad"):
                 edad.style.borderColor="red";
                 break;
+            case (elemento.espacio=="dni"):
+                dni.style.borderColor="red";
+                break;            
             case (elemento.espacio=="sexo"):
                 sexo.style.borderColor="red";
                 break;
